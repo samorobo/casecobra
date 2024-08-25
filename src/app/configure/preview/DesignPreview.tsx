@@ -13,11 +13,18 @@ import Confetti from 'react-dom-confetti'
 import { createCheckoutSession } from './actions'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
+import LoginModal from '@/components/LoginModal'
 
 const DesignPreview = ({configuration}: {configuration: Configuration}) => {
     const router = useRouter()
     const { toast } = useToast()
-    const [showConfetti, setShowConfetti] = useState(false)
+    const { id } = configuration
+    const { user } = useKindeBrowserClient()
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
+
+
+    const [showConfetti, setShowConfetti] = useState<boolean>(false)
     // once the component mounts let setConfetti be set to true
     useEffect(() => setShowConfetti(true))
 
@@ -68,12 +75,26 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
         }
     })
 
+    const handleCheckout = () => {
+        if(user){
+            // create payment session
+            createPaymentSession({ configId: id })
+        } else {
+            // need to log in
+            //localStorage.setItem() is used to put something in localStorage
+            localStorage.setItem('configurationId', id)
+            setIsLoginModalOpen(true)
+        }
+    }
+
 
     return (
     <>
     <div aria-hidden="true" className="pointer-events-none select-none absolute inset-0 overflow-hidden flex justify-center">
         <Confetti active={showConfetti} config={{ elementCount: 500, spread: 120, duration: 5000 }} />
     </div>
+
+    <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
 
     <div className="mt-20 grid grid-cols-1 text-sm sm:grid-cols-12 sm:grid-row-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
         <div className="sm:col-span-4 md:col-span-3 md:row-span-2 md:row-end-2">
@@ -139,7 +160,7 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
                     </div>
                 </div>
                 <div className="mt-8 flex justify-end pb-12">
-                <Button onClick={() => createPaymentSession({ configId: configuration.id})} 
+                <Button onClick={() => handleCheckout()} 
                 //disabled={true} 
                 //isLoading={true} 
                 //loadingText='loading' 
