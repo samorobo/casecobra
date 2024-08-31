@@ -385,7 +385,6 @@ function base64ToBlob(base64: string, mimeType: string){
               </div>
 
               <div>
-                <Label className="block mb-2">Color</Label>
                 <RadioGroup 
                             value={options.color}
                             onChange={(val) => {
@@ -415,7 +414,6 @@ function base64ToBlob(base64: string, mimeType: string){
               </div>
 
               <div>
-                <Label className="block mb-2">Material</Label>
                 {[MATERIALS,FINISHES].map(({name, options: selectableOptions}) => (
                             <RadioGroup key={name} value={options[name]} onChange={(val) => {
                                 setOptions((prev) => ({
