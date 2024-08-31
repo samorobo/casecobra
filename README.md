@@ -34,14 +34,25 @@ Features
 ✅ Apple-inspired configuration design
 ⌨️ 100% written in TypeScript
 🎁 ...much more
+
+
 Getting started
 To get started with this project, run
 
   git clone https://github.com/samorobo/casecobra.git
+  
 and copy the .env.example variables into a separate .env file, fill them out & and that's all you need to get started!
 
-Acknowledgements
-Kinde for making this project possible
+Packages/technologies Used
+kinde
+shadcn-ui
+stripe
+Resend
+neon database
+prisma
+uploadThing
+
+
 License
 MIT
 
