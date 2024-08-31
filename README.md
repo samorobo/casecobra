@@ -31,7 +31,6 @@ Features
 🌟 Clean, modern UI on top of shadcn-ui
 🛒 Completely custom phone case configurator
 🔑 Authentication using Kinde
-✉️ Beautiful thank-you email after purchase
 ✅ Apple-inspired configuration design
 ⌨️ 100% written in TypeScript
 🎁 ...much more
